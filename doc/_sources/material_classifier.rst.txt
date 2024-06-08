@@ -1,0 +1,38 @@
+material\_classifier package
+============================
+
+Submodules
+----------
+
+material\_classifier.dataset module
+-----------------------------------
+
+.. automodule:: material_classifier.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+material\_classifier.fetch module
+---------------------------------
+
+.. automodule:: material_classifier.fetch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+material\_classifier.train module
+---------------------------------
+
+.. automodule:: material_classifier.train
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: material_classifier
+   :members:
+   :undoc-members:
+   :show-inheritance:

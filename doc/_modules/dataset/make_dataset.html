@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dataset.make_dataset &mdash; Building Classification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Building Classification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Building Classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>dataset.make_dataset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dataset.make_dataset</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This includes the main function img_from_db which is used by the pipeline to create images.</span>
+
+<span class="sd">It also includes helper functions for images stitching which can be used by adding </span>
+<span class="sd">sample = True to the list of args in run.py for the &quot;args.sample&quot; command, or by changing the default</span>
+<span class="sd">to sample = True in the img_from_db function</span>
+
+<span class="sd">imgs_copied.txt: used to store the amoung of images already pulled from the API</span>
+<span class="sd">imgs_copied_stitched.txt: same function, but if you are pulling stitched images</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">shapefile</span>
+<span class="kn">import</span> <span class="nn">google_streetview.api</span>
+<span class="kn">import</span> <span class="nn">googlemaps</span>
+<span class="c1">#from gmaps import Roads</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="c1"># from sample.py</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rand</span>
+
+<span class="c1"># for image_stitching</span>
+<span class="kn">from</span> <span class="nn">imutils</span> <span class="k">import</span> <span class="n">paths</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">imutils</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">from</span> <span class="nn">cv2</span> <span class="k">import</span> <span class="n">cv2</span>
+
+<span class="n">this_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<div class="viewcode-block" id="get_sides"><a class="viewcode-back" href="../../dataset.html#dataset.make_dataset.get_sides">[docs]</a><span class="k">def</span> <span class="nf">get_sides</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">long</span><span class="p">,</span> <span class="n">init_heading</span><span class="p">):</span>
+    <span class="c1"># Used for image stitching: Define parameters for street view api</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Correlates to the good area ratio</span>
+    <span class="n">imgCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;stitchUnlabel&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;stitchUnlabel&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">))])</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdirname</span><span class="p">:</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">[{</span>
+                <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="s1">&#39;640x640&#39;</span><span class="p">,</span>  <span class="c1"># max 640x640 pixels</span>
+                <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">long</span><span class="p">),</span>
+                <span class="s1">&#39;heading&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">init_heading</span> <span class="o">-</span> <span class="mi">30</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="mi">90</span><span class="o">/</span><span class="n">steps</span><span class="p">),</span>
+                <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
+                <span class="c1"># &#39;fov&#39;: &#39;0&#39;,</span>
+                <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;outdoor&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;AIzaSyAwTObZ9-lfhdw9blad_ce4SUX5PWsufTI&#39;</span>
+            <span class="p">}]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">google_streetview</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+            <span class="c1">#print(results.metadata)</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">download_links</span><span class="p">(</span><span class="n">tmpdirname</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpdirname</span> <span class="o">+</span> <span class="s1">&#39;/gsv_0.jpg&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tmpdirname</span> <span class="o">+</span> <span class="s1">&#39;/gsv_0.jpg&#39;</span><span class="p">)</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;imgToStitch&#39;</span> <span class="o">+</span> <span class="s1">&#39;/gsv&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;rawImages&#39;</span> <span class="o">+</span> <span class="s1">&#39;/gsv&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">imgCount</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;imgToStitch/gsv&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+            <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="img_stitch"><a class="viewcode-back" href="../../dataset.html#dataset.make_dataset.img_stitch">[docs]</a><span class="k">def</span> <span class="nf">img_stitch</span><span class="p">():</span>
+    <span class="c1"># Used for image stitching: grab the paths to the input images and initialize our images list</span>
+    <span class="n">imgPaths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">list_images</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s2">&quot;imgToStitch&quot;</span><span class="p">)))</span>
+    <span class="n">imgs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># loop over the image paths, load each one, and add them to our</span>
+    <span class="c1"># images to stitch list</span>
+    <span class="k">for</span> <span class="n">imgPath</span> <span class="ow">in</span> <span class="n">imgPaths</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">imgPath</span><span class="p">)</span>
+        <span class="n">imgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="c1"># initialize OpenCV&#39;s image stitcher object and then perform the image</span>
+    <span class="c1"># stitching</span>
+    <span class="n">stitcher</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createStitcher</span><span class="p">()</span> <span class="k">if</span> <span class="n">imutils</span><span class="o">.</span><span class="n">is_cv3</span><span class="p">()</span> <span class="k">else</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Stitcher_create</span><span class="p">()</span>
+    <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">stitched</span><span class="p">)</span> <span class="o">=</span> <span class="n">stitcher</span><span class="o">.</span><span class="n">stitch</span><span class="p">(</span><span class="n">imgs</span><span class="p">)</span>
+
+    <span class="c1"># if the status is &#39;0&#39;, then OpenCV successfully performed image</span>
+    <span class="c1"># stitching</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># create a 10 pixel border surrounding the stitched image</span>
+        <span class="n">stitched</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">copyMakeBorder</span><span class="p">(</span><span class="n">stitched</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">BORDER_CONSTANT</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># get number of images already in the ./stitchUnlabel directory</span>
+        <span class="n">imgCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;stitchUnlabel&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;stitchUnlabel&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">))])</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="c1"># write the output stitched image to disk (adding 1 to imgCount bc first image is gsv1 not gsv0)</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;stitchUnlabel&#39;</span> <span class="o">+</span> <span class="s1">&#39;/gsv&#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">imgCount</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="n">stitched</span><span class="p">)</span>
+
+    <span class="c1"># otherwise the stitching failed, likely due to not enough keypoints)</span>
+    <span class="c1"># being detected</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] image stitching failed (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">status</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="img_from_db"><a class="viewcode-back" href="../../dataset.html#dataset.make_dataset.img_from_db">[docs]</a><span class="k">def</span> <span class="nf">img_from_db</span><span class="p">(</span><span class="n">numImgs</span><span class="p">,</span><span class="n">final_path</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">stitch</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the only function being used by the pipeline: </span>
+<span class="sd">    generates an image for the ith entry in the zurich building database by</span>
+<span class="sd">    snapping it&#39;s point to the nearest roadview and collecting the image from </span>
+<span class="sd">    google streetview</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#print(&quot;generating&quot;,numImgs, &quot;images in&quot;, final_path)</span>
+    <span class="k">global</span> <span class="n">this_path</span>
+    <span class="n">this_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">src</span><span class="se">\\</span><span class="s2">dataset</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">final_path</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">path</span>
+    <span class="c1">#print(&quot;this_path&quot;,this_path)</span>
+    
+    <span class="n">imgs_seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1">#this only holds images seen in this batch of generation... not all batches</span>
+
+    <span class="n">dest_folder</span> <span class="o">=</span> <span class="s1">&#39;stitchUnlabel&#39;</span> <span class="k">if</span> <span class="n">stitch</span> <span class="k">else</span> <span class="s1">&#39;Unlabel&#39;</span>
+
+    <span class="k">if</span> <span class="n">stitch</span><span class="p">:</span>  <span class="c1">#just locations.csv</span>
+        <span class="n">imgCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">([</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span><span class="p">,</span> <span class="n">name</span><span class="p">))])</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;imgs_copied.txt&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Need &quot;</span> <span class="o">+</span> <span class="n">this_path</span> <span class="o">+</span> <span class="s2">&quot;imgs_copied.txt or imgs_copied_stitched.txt file to keep track of how many are copied. </span><span class="se">\</span>
+<span class="s2">                Initialize file with integer 0 if starting from beginning of database&quot;</span><span class="p">)</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;imgs_copied.txt&#39;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">imgCount</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1">#locations.csv and metadata.json</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ImgCount is &quot;</span><span class="p">,</span><span class="n">imgCount</span><span class="p">)</span>
+
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">shapefile</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s2">&quot;Zurich_location\data_w_Zurich_location.shp&quot;</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># used if stich=false</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span><span class="o">+</span> <span class="s2">&quot;/locations.csv&quot;</span><span class="p">):</span>
+        <span class="n">locFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span> <span class="o">+</span> <span class="s2">&quot;/locations.csv&quot;</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">locFile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span><span class="o">+</span> <span class="s2">&quot;/locations.csv&quot;</span><span class="p">,</span><span class="s2">&quot;w+&quot;</span><span class="p">)</span>
+        <span class="n">locFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Building, Road, Heading, Errors</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">imgCount</span><span class="p">,</span><span class="n">imgCount</span><span class="o">+</span><span class="n">numImgs</span><span class="p">):</span>
+        <span class="c1">#i=-i #uncomment this to generate images starting from the end of the database</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="c1">#first feature of the shapefile</span>
+        <span class="n">feature</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">shapeRecords</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">__geo_interface__</span>  
+
+        <span class="c1">#c is center of building</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">5</span><span class="p">),</span><span class="nb">round</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span> <span class="c1">#it looks like google maps goes up to 5 decimal point precision </span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;from database:&quot;</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="c1"># (GeoJSON format)</span>
+
+        <span class="n">param_road</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;lat&quot;</span> <span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;lng&quot;</span> <span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]}]</span> <span class="c1"># we store it as (lat,long)</span>
+        <span class="n">gmaps</span> <span class="o">=</span> <span class="n">googlemaps</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="s1">&#39;AIzaSyDXspVdNLu7T_U3-RxqxRryffP-_kc3b3k&#39;</span><span class="p">)</span>
+        <span class="c1"># r is cordinate snapped to road</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">gmaps</span><span class="o">.</span><span class="n">snap_to_roads</span><span class="p">(</span><span class="n">param_road</span><span class="p">)</span> <span class="c1">#a is temp variable</span>
+        <span class="c1">#print(&quot;Snapped to Road:&quot;,a)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Roads API returned empty result...&quot;</span><span class="p">)</span>
+            <span class="n">locFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{c[0]}</span><span class="s2"> </span><span class="si">{c[1]}</span><span class="s2">, 0 0, 0, 3</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[</span> <span class="nb">round</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span><span class="mi">5</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">][</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span><span class="mi">5</span><span class="p">)]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;from snapped to road:&quot;</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">((</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="c1">#lat. is like y axis (horiz lines on vertical axis), long. is like x </span>
+        <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+            <span class="n">heading</span> <span class="o">=</span> <span class="mi">90</span> <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">270</span>
+
+        <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># if x is negative then it&#39;s supposed to be in quadrants 2 or 3</span>
+            <span class="n">heading</span><span class="o">+=</span><span class="mi">180</span>
+        <span class="n">heading</span> <span class="o">=</span> <span class="mi">360</span><span class="o">-</span><span class="n">heading</span> <span class="o">+</span> <span class="mi">90</span> <span class="c1">#zero is north not east like unit circle</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;heading:&#39;</span><span class="p">,</span> <span class="n">heading</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">stitch</span><span class="p">:</span>
+            <span class="n">get_sides</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">heading</span><span class="p">)</span>
+            <span class="n">img_stitch</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdirname</span><span class="p">:</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="p">[{</span>
+                    <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="s1">&#39;640x640&#39;</span><span class="p">,</span>  <span class="c1"># max 640x640 pixels</span>
+                    <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="c1">#note json format returns long,lat backwards</span>
+                    <span class="s1">&#39;heading&#39;</span><span class="p">:</span> <span class="n">heading</span><span class="p">,</span>
+                    <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="s1">&#39;25&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;outdoor&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="s1">&#39;AIzaSyAwTObZ9-lfhdw9blad_ce4SUX5PWsufTI&#39;</span>
+                <span class="p">}]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">google_streetview</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">results</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+                
+                <span class="n">results</span><span class="o">.</span><span class="n">download_links</span><span class="p">(</span><span class="n">tmpdirname</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpdirname</span> <span class="o">+</span> <span class="s1">&#39;/gsv_0.jpg&#39;</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;indoors... going to next&quot;</span><span class="p">)</span>
+                    <span class="n">locFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{c[0]}</span><span class="s2"> </span><span class="si">{c[1]}</span><span class="s2">, </span><span class="si">{r[0]}</span><span class="s2"> </span><span class="si">{r[1]}</span><span class="s2">, </span><span class="si">{heading}</span><span class="s2">, 1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;pano_id&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">imgs_seen</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;deja le voir... going to next&quot;</span><span class="p">)</span>
+                    <span class="n">locFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{c[0]}</span><span class="s2"> </span><span class="si">{c[1]}</span><span class="s2">, </span><span class="si">{r[0]}</span><span class="s2"> </span><span class="si">{r[1]}</span><span class="s2">, </span><span class="si">{heading}</span><span class="s2">, 2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                
+                <span class="n">imgs_seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+
+                <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tmpdirname</span> <span class="o">+</span> <span class="s1">&#39;/gsv_0.jpg&#39;</span><span class="p">)</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="s1">&#39;Unlabel/gsv_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+        <span class="c1">#locFile.write(&#39;%d %d, %d %d, %d&#39;.format(c[0],c[1],r[0],r[1],heading, 0 (indicating outdoors)))</span>
+        <span class="n">locFile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{c[0]}</span><span class="s2"> </span><span class="si">{c[1]}</span><span class="s2">, </span><span class="si">{r[0]}</span><span class="s2"> </span><span class="si">{r[1]}</span><span class="s2">, </span><span class="si">{heading}</span><span class="s2">, 0</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+
+    <span class="n">locFile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1">#i think 0 degrees is north. and it increases clockwise</span>
+
+    <span class="c1">#this copies the files over to the new directory </span>
+    <span class="k">if</span> <span class="n">final_path</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">txtfile_dir</span> <span class="o">=</span> <span class="s2">&quot;imgs_copied_stitched.txt&quot;</span> <span class="k">if</span> <span class="n">stitch</span> <span class="k">else</span> <span class="s2">&quot;imgs_copied.txt&quot;</span>
+        <span class="k">if</span> <span class="n">stitch</span><span class="p">:</span>
+            <span class="c1">#if images are stiched we didn&#39;t open this file to read how many images are already copied</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">txtfile_dir</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Need &quot;</span> <span class="o">+</span> <span class="n">this_path</span> <span class="o">+</span> <span class="s2">&quot;imgs_copied.txt or imgs_copied_stitched.txt file to keep track of how many are copied. </span><span class="se">\</span>
+<span class="s2">                    Initialize file with integer 0 if starting from beginning of database&quot;</span><span class="p">)</span>
+            <span class="n">copied_tracker</span><span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">txtfile_dir</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+            <span class="n">num_copied</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">copied_tracker</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+            <span class="n">copied_tracker</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#if images aren&#39;t stitched we already read this file to get imgCount</span>
+            <span class="n">num_copied</span> <span class="o">=</span> <span class="n">imgCount</span>
+        <span class="c1">#print(&quot;COPIED SO FAR %d&quot;%num_copied)</span>
+
+        <span class="n">src_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span><span class="p">)</span>
+        <span class="c1">#print(src_files)</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">src_files</span><span class="p">:</span>
+            <span class="n">full_file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">dest_folder</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">stitch</span><span class="p">:</span> 
+                <span class="n">img_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">file_name</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span> <span class="k">if</span> <span class="n">full_file_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span><span class="o">==</span><span class="s1">&#39;.jpg&#39;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">img_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">file_name</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span> <span class="k">if</span> <span class="n">full_file_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span><span class="o">==</span><span class="s1">&#39;.jpg&#39;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1">#print(&quot;EXTENSION: &quot;, full_file_name, &quot; &quot;, full_file_name[-4:], img_num)</span>
+
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">full_file_name</span><span class="p">)</span> <span class="ow">and</span> <span class="n">full_file_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span><span class="o">==</span><span class="s1">&#39;.jpg&#39;</span> <span class="ow">and</span> <span class="n">img_num</span> <span class="o">&gt;=</span> <span class="n">num_copied</span><span class="p">:</span> <span class="c1">#make sure we only copy imgs</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">full_file_name</span><span class="p">,</span> <span class="n">final_path</span><span class="p">)</span>
+
+        <span class="n">copied_tracker</span><span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">this_path</span> <span class="o">+</span> <span class="n">txtfile_dir</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">copied_tracker</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">imgCount</span><span class="o">+</span><span class="n">numImgs</span><span class="p">))</span>
+        <span class="n">copied_tracker</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; This main program was just used for testing the make_dataset functions</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># img_from_db(200)</span>
+    <span class="c1"># img_stitch()</span>
+    <span class="n">img_from_db</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> 
+
+    <span class="c1">#uncomment the code below if you want to look up just one image from GoogleAPI</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    c=(47.37593, 8.54457)</span>
+<span class="sd">    params = [{</span>
+<span class="sd">                &#39;size&#39;: &#39;600x600&#39;,  # max 640x640 pixels</span>
+<span class="sd">                &#39;location&#39;: str(c[0]) + &#39;,&#39; + str(c[1]),</span>
+<span class="sd">                &#39;heading&#39;: 270,</span>
+<span class="sd">                &#39;pitch&#39;: &#39;25&#39;,</span>
+<span class="sd">                # &#39;fov&#39;: &#39;0&#39;,</span>
+<span class="sd">                &#39;key&#39;: &#39;AIzaSyAwTObZ9-lfhdw9blad_ce4SUX5PWsufTI&#39;</span>
+<span class="sd">            }]  </span>
+<span class="sd">    results = google_streetview.api.results(params)</span>
+<span class="sd">    results.download_links(&quot;./&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">csv key:</span>
+<span class="sd">Building, Road, Heading, Errors</span>
+<span class="sd">Buidling: lat_building long_building</span>
+<span class="sd">Road: lat_snappedtoRoad long_snappedtoRoad</span>
+<span class="sd">Heading: degrees pointing from road to building with 0 facing north and going clockwise</span>
+<span class="sd">Errors:</span>
+<span class="sd">0 = no errors</span>
+<span class="sd">1 = indoor pic returned from google api</span>
+<span class="sd">2 = repeated pic in same batch (meaning if you call in --sample 200, in only checks for repeats within those 200)</span>
+<span class="sd">3 = google roads api returned empty list? </span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Abhi Kamboj, Cary Chai, Francisco Lozano
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

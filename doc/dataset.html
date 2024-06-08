@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dataset package &mdash; Building Classification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Building Classification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">dataset package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-dataset.make_dataset">dataset.make_dataset module</a></li>
+<li><a class="reference internal" href="#module-dataset.rand_samples">dataset.rand_samples module</a></li>
+<li><a class="reference internal" href="#module-dataset.sample">dataset.sample module</a></li>
+<li><a class="reference internal" href="#module-dataset">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Building Classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>dataset package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dataset.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dataset-package">
+<h1>dataset package<a class="headerlink" href="#dataset-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-dataset.make_dataset">
+<span id="dataset-make-dataset-module"></span><h2>dataset.make_dataset module<a class="headerlink" href="#module-dataset.make_dataset" title="Permalink to this headline">¶</a></h2>
+<p>This includes the main function img_from_db which is used by the pipeline to create images.</p>
+<p>It also includes helper functions for images stitching which can be used by adding 
+sample = True to the list of args in run.py for the “args.sample” command, or by changing the default
+to sample = True in the img_from_db function</p>
+<p>imgs_copied.txt: used to store the amoung of images already pulled from the API
+imgs_copied_stitched.txt: same function, but if you are pulling stitched images</p>
+<dl class="function">
+<dt id="dataset.make_dataset.get_sides">
+<code class="sig-prename descclassname">dataset.make_dataset.</code><code class="sig-name descname">get_sides</code><span class="sig-paren">(</span><em class="sig-param">lat</em>, <em class="sig-param">long</em>, <em class="sig-param">init_heading</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/make_dataset.html#get_sides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.make_dataset.get_sides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dataset.make_dataset.img_from_db">
+<code class="sig-prename descclassname">dataset.make_dataset.</code><code class="sig-name descname">img_from_db</code><span class="sig-paren">(</span><em class="sig-param">numImgs</em>, <em class="sig-param">final_path=''</em>, <em class="sig-param">path='./'</em>, <em class="sig-param">stitch=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/make_dataset.html#img_from_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.make_dataset.img_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the only function being used by the pipeline: 
+generates an image for the ith entry in the zurich building database by
+snapping it’s point to the nearest roadview and collecting the image from 
+google streetview</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dataset.make_dataset.img_stitch">
+<code class="sig-prename descclassname">dataset.make_dataset.</code><code class="sig-name descname">img_stitch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/make_dataset.html#img_stitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.make_dataset.img_stitch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-dataset.rand_samples">
+<span id="dataset-rand-samples-module"></span><h2>dataset.rand_samples module<a class="headerlink" href="#module-dataset.rand_samples" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>This produces file contains functions to produce random images of buildings</dt><dd><p>from random cordinates in Zurich.</p>
+</dd>
+</dl>
+<p>It was used for experimentation and development but is not used in the final pipeline.</p>
+<dl class="class">
+<dt id="dataset.rand_samples.randImgs">
+<em class="property">class </em><code class="sig-prename descclassname">dataset.rand_samples.</code><code class="sig-name descname">randImgs</code><a class="reference internal" href="_modules/dataset/rand_samples.html#randImgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.rand_samples.randImgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Current generates a random image within a square grid of zurich</p>
+<dl class="method">
+<dt id="dataset.rand_samples.randImgs.randCoord">
+<code class="sig-name descname">randCoord</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/rand_samples.html#randImgs.randCoord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.rand_samples.randImgs.randCoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a random coordinate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataset.rand_samples.randImgs.randCoordGen">
+<code class="sig-name descname">randCoordGen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/rand_samples.html#randImgs.randCoordGen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.rand_samples.randImgs.randCoordGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a random coordinate generator</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dataset.rand_samples.randImgs.randImg">
+<code class="sig-name descname">randImg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/rand_samples.html#randImgs.randImg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.rand_samples.randImgs.randImg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a random 600x600 img in the current directory title ‘gcv_0.jpg’</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dataset.sample">
+<span id="dataset-sample-module"></span><h2>dataset.sample module<a class="headerlink" href="#module-dataset.sample" title="Permalink to this headline">¶</a></h2>
+<p>This file includes:
+- basic image stitching functions: stitch, get_stitched_360, get_sides
+- random cordinate generator within Zurich: random_coordinate()
+none of these functions are used in the final pipeline.</p>
+<dl class="function">
+<dt id="dataset.sample.get_sides">
+<code class="sig-prename descclassname">dataset.sample.</code><code class="sig-name descname">get_sides</code><span class="sig-paren">(</span><em class="sig-param">lat</em>, <em class="sig-param">long</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/sample.html#get_sides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.sample.get_sides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dataset.sample.get_stitched_360">
+<code class="sig-prename descclassname">dataset.sample.</code><code class="sig-name descname">get_stitched_360</code><span class="sig-paren">(</span><em class="sig-param">lat</em>, <em class="sig-param">long</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/sample.html#get_stitched_360"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.sample.get_stitched_360" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dataset.sample.random_cordinate">
+<code class="sig-prename descclassname">dataset.sample.</code><code class="sig-name descname">random_cordinate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/sample.html#random_cordinate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.sample.random_cordinate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dataset.sample.simple_un_fov">
+<code class="sig-prename descclassname">dataset.sample.</code><code class="sig-name descname">simple_un_fov</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/sample.html#simple_un_fov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.sample.simple_un_fov" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dataset.sample.stitch">
+<code class="sig-prename descclassname">dataset.sample.</code><code class="sig-name descname">stitch</code><span class="sig-paren">(</span><em class="sig-param">images</em>, <em class="sig-param">extra_lap=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dataset/sample.html#stitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dataset.sample.stitch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-dataset">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dataset" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Abhi Kamboj, Cary Chai, Francisco Lozano
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

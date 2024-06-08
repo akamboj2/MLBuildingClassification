@@ -1,0 +1,38 @@
+image\_segmentation package
+===========================
+
+Submodules
+----------
+
+image\_segmentation.dataset module
+----------------------------------
+
+.. automodule:: image_segmentation.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+image\_segmentation.labeler module
+----------------------------------
+
+.. automodule:: image_segmentation.labeler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+image\_segmentation.train module
+--------------------------------
+
+.. automodule:: image_segmentation.train
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: image_segmentation
+   :members:
+   :undoc-members:
+   :show-inheritance:

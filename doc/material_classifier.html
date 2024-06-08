@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>material_classifier package &mdash; Building Classification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Building Classification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">material_classifier package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-material_classifier.dataset">material_classifier.dataset module</a></li>
+<li><a class="reference internal" href="#module-material_classifier.fetch">material_classifier.fetch module</a></li>
+<li><a class="reference internal" href="#module-material_classifier.train">material_classifier.train module</a></li>
+<li><a class="reference internal" href="#module-material_classifier">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Building Classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>material_classifier package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/material_classifier.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="material-classifier-package">
+<h1>material_classifier package<a class="headerlink" href="#material-classifier-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-material_classifier.dataset">
+<span id="material-classifier-dataset-module"></span><h2>material_classifier.dataset module<a class="headerlink" href="#module-material_classifier.dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="material_classifier.dataset.ClassifierDataset">
+<em class="property">class </em><code class="sig-prename descclassname">material_classifier.dataset.</code><code class="sig-name descname">ClassifierDataset</code><span class="sig-paren">(</span><em class="sig-param">csv_file</em>, <em class="sig-param">root_dir</em>, <em class="sig-param">transformation=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/dataset.html#ClassifierDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.dataset.ClassifierDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<blockquote>
+<div><p>Classifier dataset.</p>
+</div></blockquote>
+<p>Each sample is a dictionary containing:
+‘image’: path to the original image
+‘label’: label</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="material_classifier.dataset.RandomCrop">
+<em class="property">class </em><code class="sig-prename descclassname">material_classifier.dataset.</code><code class="sig-name descname">RandomCrop</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/dataset.html#RandomCrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.dataset.RandomCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Transformation of a sample. Crop randomly the image in a sample.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="material_classifier.dataset.Rescale">
+<em class="property">class </em><code class="sig-prename descclassname">material_classifier.dataset.</code><code class="sig-name descname">Rescale</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/dataset.html#Rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.dataset.Rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Transformation of the size of a sample</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="material_classifier.dataset.ToTensor">
+<em class="property">class </em><code class="sig-prename descclassname">material_classifier.dataset.</code><code class="sig-name descname">ToTensor</code><a class="reference internal" href="_modules/material_classifier/dataset.html#ToTensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.dataset.ToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class convert ndarrays in sample to Tensors.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-material_classifier.fetch">
+<span id="material-classifier-fetch-module"></span><h2>material_classifier.fetch module<a class="headerlink" href="#module-material_classifier.fetch" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="material_classifier.fetch.fetch_images">
+<code class="sig-prename descclassname">material_classifier.fetch.</code><code class="sig-name descname">fetch_images</code><span class="sig-paren">(</span><em class="sig-param">search</em>, <em class="sig-param">number</em>, <em class="sig-param">dir_name='google_downloads'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/fetch.html#fetch_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.fetch.fetch_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches number amount of images from Google Images starting from the image result 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search</strong> – search query</p></li>
+<li><p><strong>number</strong> – number of images. If &gt;100, the chromedriver.exe has to be added to the PATH and Google Chrome must be installed.</p></li>
+<li><p><strong>dir_name</strong> – name of the directory</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>image names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="material_classifier.fetch.search_and_label">
+<code class="sig-prename descclassname">material_classifier.fetch.</code><code class="sig-name descname">search_and_label</code><span class="sig-paren">(</span><em class="sig-param">labels</em>, <em class="sig-param">number=5</em>, <em class="sig-param">dir_name='google_downloads'</em>, <em class="sig-param">csv_file='./data.csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/fetch.html#search_and_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.fetch.search_and_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the different labels and downloads the same amount for every label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> – labels</p></li>
+<li><p><strong>number</strong> – numbers</p></li>
+<li><p><strong>dir_name</strong> – directory name</p></li>
+<li><p><strong>csv_file</strong> – path to the csv</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-material_classifier.train">
+<span id="material-classifier-train-module"></span><h2>material_classifier.train module<a class="headerlink" href="#module-material_classifier.train" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="material_classifier.train.get_label">
+<code class="sig-prename descclassname">material_classifier.train.</code><code class="sig-name descname">get_label</code><span class="sig-paren">(</span><em class="sig-param">image_path</em>, <em class="sig-param">param_path</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/train.html#get_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.train.get_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the label of an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> – path to the image</p></li>
+<li><p><strong>param_path</strong> – path to the parameter file</p></li>
+<li><p><strong>num_classes</strong> – number of classes</p></li>
+<li><p><strong>size</strong> – size of image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>label of image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="material_classifier.train.split">
+<code class="sig-prename descclassname">material_classifier.train.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param">root_dir</em>, <em class="sig-param">csv_file='./image_segmentation/data.csv'</em>, <em class="sig-param">training='./image_segmentation/training.csv'</em>, <em class="sig-param">validation='./image_segmentation/validation.csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/train.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.train.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the csv to labeling and training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_dir</strong> – directory of the labels</p></li>
+<li><p><strong>csv_file</strong> – csv file</p></li>
+<li><p><strong>training</strong> – training csv</p></li>
+<li><p><strong>validation</strong> – validation csv</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="material_classifier.train.train_resnet">
+<code class="sig-prename descclassname">material_classifier.train.</code><code class="sig-name descname">train_resnet</code><span class="sig-paren">(</span><em class="sig-param">csv_file</em>, <em class="sig-param">root_path</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">param_path</em>, <em class="sig-param">image_size=256</em>, <em class="sig-param">crop_size=256</em>, <em class="sig-param">batch_size=1</em>, <em class="sig-param">epochs=1</em>, <em class="sig-param">lr=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/material_classifier/train.html#train_resnet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#material_classifier.train.train_resnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the classifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_file</strong> – path to the csv</p></li>
+<li><p><strong>root_path</strong> – directory of the images</p></li>
+<li><p><strong>num_classes</strong> – number of classes</p></li>
+<li><p><strong>param_path</strong> – path to the parameter file</p></li>
+<li><p><strong>image_size</strong> – size of the input image</p></li>
+<li><p><strong>crop_size</strong> – crop transformation</p></li>
+<li><p><strong>batch_size</strong> – batch size</p></li>
+<li><p><strong>epochs</strong> – number of epochs</p></li>
+<li><p><strong>lr</strong> – learning rate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-material_classifier">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-material_classifier" title="Permalink to this headline">¶</a></h2>
+<p>Trains a image classifier using a resnet model.</p>
+<p>The input to the model is expected to be a list of tensors, each of shape [C, H, W].</p>
+<p>It uses CrossEntropyLoss as loss function and Adam as optimizer.</p>
+<p>During training it expects every image to have a label between 0 and the number of classes - 1.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Abhi Kamboj, Cary Chai, Francisco Lozano
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

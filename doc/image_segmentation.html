@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>image_segmentation package &mdash; Building Classification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Building Classification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">image_segmentation package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-image_segmentation.dataset">image_segmentation.dataset module</a></li>
+<li><a class="reference internal" href="#module-image_segmentation.labeler">image_segmentation.labeler module</a></li>
+<li><a class="reference internal" href="#module-image_segmentation.train">image_segmentation.train module</a></li>
+<li><a class="reference internal" href="#module-image_segmentation">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Building Classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>image_segmentation package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/image_segmentation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="image-segmentation-package">
+<h1>image_segmentation package<a class="headerlink" href="#image-segmentation-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-image_segmentation.dataset">
+<span id="image-segmentation-dataset-module"></span><h2>image_segmentation.dataset module<a class="headerlink" href="#module-image_segmentation.dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="image_segmentation.dataset.Noise">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.dataset.</code><code class="sig-name descname">Noise</code><span class="sig-paren">(</span><em class="sig-param">noise</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/dataset.html#Noise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.dataset.Noise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Applies noise to the image.</p>
+<p>This piece of code was extracted from the following source with few modifications:
+<a class="reference external" href="https://stackoverflow.com/questions/22937589/how-to-add-noise-gaussian-salt-and-pepper-etc-to-image-in-python-with-opencv">https://stackoverflow.com/questions/22937589/how-to-add-noise-gaussian-salt-and-pepper-etc-to-image-in-python-with-opencv</a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="image_segmentation.dataset.RandomCrop">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.dataset.</code><code class="sig-name descname">RandomCrop</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/dataset.html#RandomCrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.dataset.RandomCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Transformation of a sample. Crop randomly the image in a sample.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="image_segmentation.dataset.Rescale">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.dataset.</code><code class="sig-name descname">Rescale</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/dataset.html#Rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.dataset.Rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Rescales the sample</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="image_segmentation.dataset.SegmentationDataset">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.dataset.</code><code class="sig-name descname">SegmentationDataset</code><span class="sig-paren">(</span><em class="sig-param">csv_file</em>, <em class="sig-param">root_dir</em>, <em class="sig-param">transformation=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/dataset.html#SegmentationDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.dataset.SegmentationDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<p>Dataset of image segmentation.</p>
+<dl class="simple">
+<dt>Each sample is a dictionary containing:</dt><dd><p>‘image’: path to the original image
+‘target’: pixel-wise label</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="image_segmentation.dataset.ToTensor">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.dataset.</code><code class="sig-name descname">ToTensor</code><a class="reference internal" href="_modules/image_segmentation/dataset.html#ToTensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.dataset.ToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class convert ndarrays in sample to Tensors.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-image_segmentation.labeler">
+<span id="image-segmentation-labeler-module"></span><h2>image_segmentation.labeler module<a class="headerlink" href="#module-image_segmentation.labeler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="image_segmentation.labeler.LabelDialog">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.labeler.</code><code class="sig-name descname">LabelDialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#LabelDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.LabelDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.uix.popup.Popup</span></code></p>
+<p>Labeler dialog.
+Asks for a label.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="image_segmentation.labeler.Labeler">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.labeler.</code><code class="sig-name descname">Labeler</code><span class="sig-paren">(</span><em class="sig-param">unlabeled_dir</em>, <em class="sig-param">labeled_dir</em>, <em class="sig-param">path_to_csv</em>, <em class="sig-param">n_classes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.uix.floatlayout.FloatLayout</span></code></p>
+<p>Labeler layout.</p>
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.add_to_dataset">
+<code class="sig-name descname">add_to_dataset</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.add_to_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.add_to_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the new sample to the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – ignored</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.clear_canvas">
+<code class="sig-name descname">clear_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.clear_canvas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.clear_canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the canvas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – ignored</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.discard">
+<code class="sig-name descname">discard</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.discard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.discard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discards the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.dismiss_dialog">
+<code class="sig-name descname">dismiss_dialog</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.dismiss_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.dismiss_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the dialog as closed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – ignored</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="image_segmentation.labeler.Labeler.label">
+<code class="sig-name descname">label</code><a class="headerlink" href="#image_segmentation.labeler.Labeler.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>label</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.on_label">
+<code class="sig-name descname">on_label</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.on_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.on_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when a different label is chosen.
+:param args: param ignored</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.on_touch_down">
+<code class="sig-name descname">on_touch_down</code><span class="sig-paren">(</span><em class="sig-param">touch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.on_touch_down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.on_touch_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the state as painting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>touch</strong> – mouse position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.on_touch_move">
+<code class="sig-name descname">on_touch_move</code><span class="sig-paren">(</span><em class="sig-param">touch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.on_touch_move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.on_touch_move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when window is clicked.
+Paints the line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>touch</strong> – mouse position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.on_touch_up">
+<code class="sig-name descname">on_touch_up</code><span class="sig-paren">(</span><em class="sig-param">touch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.on_touch_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.on_touch_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the state as not painting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>touch</strong> – mouse position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.open_dialog">
+<code class="sig-name descname">open_dialog</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.open_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.open_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the dialog as open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – ignored</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="image_segmentation.labeler.Labeler.paint_line">
+<code class="sig-name descname">paint_line</code><span class="sig-paren">(</span><em class="sig-param">pos</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#Labeler.paint_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.Labeler.paint_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paints a line from latest position known to the new position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pos</strong> – new position</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="image_segmentation.labeler.LabelerApp">
+<em class="property">class </em><code class="sig-prename descclassname">image_segmentation.labeler.</code><code class="sig-name descname">LabelerApp</code><span class="sig-paren">(</span><em class="sig-param">path_to_labeled</em>, <em class="sig-param">path_to_unlabeled</em>, <em class="sig-param">path_to_csv</em>, <em class="sig-param">n_classes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#LabelerApp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.LabelerApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.app.App</span></code></p>
+<p>Labeler Application</p>
+<dl class="method">
+<dt id="image_segmentation.labeler.LabelerApp.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#LabelerApp.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.LabelerApp.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds the application.
+Returns the built app.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="image_segmentation.labeler.crop">
+<code class="sig-prename descclassname">image_segmentation.labeler.</code><code class="sig-name descname">crop</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">box</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the cropped image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> – image</p></li>
+<li><p><strong>box</strong> – box</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_segmentation.labeler.crop_from_labeled_objects">
+<code class="sig-prename descclassname">image_segmentation.labeler.</code><code class="sig-name descname">crop_from_labeled_objects</code><span class="sig-paren">(</span><em class="sig-param">image_dir</em>, <em class="sig-param">csv_file</em>, <em class="sig-param">output_dir</em>, <em class="sig-param">temp_dir</em>, <em class="sig-param">output_csv</em>, <em class="sig-param">n_classes=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#crop_from_labeled_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.crop_from_labeled_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the dataset of object detection and crops all the images found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_dir</strong> – image directory</p></li>
+<li><p><strong>csv_file</strong> – csv path</p></li>
+<li><p><strong>output_dir</strong> – output directory</p></li>
+<li><p><strong>temp_dir</strong> – temporary directory</p></li>
+<li><p><strong>output_csv</strong> – output csv</p></li>
+<li><p><strong>n_classes</strong> – number of classes</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_segmentation.labeler.label">
+<code class="sig-prename descclassname">image_segmentation.labeler.</code><code class="sig-name descname">label</code><span class="sig-paren">(</span><em class="sig-param">unlabeled_dir</em>, <em class="sig-param">labeled_dir</em>, <em class="sig-param">csv</em>, <em class="sig-param">n_classes=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/labeler.html#label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.labeler.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to label all the images in the unlabeled directory and moves them to the labeled directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unlabeled_dir</strong> – unlabeled image directory</p></li>
+<li><p><strong>labeled_dir</strong> – kabeled image directory</p></li>
+<li><p><strong>csv</strong> – csv path</p></li>
+<li><p><strong>n_classes</strong> – number of classes</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-image_segmentation.train">
+<span id="image-segmentation-train-module"></span><h2>image_segmentation.train module<a class="headerlink" href="#module-image_segmentation.train" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="image_segmentation.train.get_label">
+<code class="sig-prename descclassname">image_segmentation.train.</code><code class="sig-name descname">get_label</code><span class="sig-paren">(</span><em class="sig-param">image_path</em>, <em class="sig-param">param_path</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/train.html#get_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.train.get_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the label of an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> – image path</p></li>
+<li><p><strong>param_path</strong> – path of parameter file</p></li>
+<li><p><strong>num_classes</strong> – number of classes</p></li>
+<li><p><strong>size</strong> – size of image input of the net</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>labeled image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_segmentation.train.split">
+<code class="sig-prename descclassname">image_segmentation.train.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param">root_dir</em>, <em class="sig-param">csv_file='./image_segmentation/data.csv'</em>, <em class="sig-param">training='./image_segmentation/training.csv'</em>, <em class="sig-param">validation='./image_segmentation/validation.csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/train.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.train.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the csv into training and validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_dir</strong> – image directory</p></li>
+<li><p><strong>csv_file</strong> – csv path</p></li>
+<li><p><strong>training</strong> – training csv (has to be created with fields)</p></li>
+<li><p><strong>validation</strong> – validation csv (has to be created with fields)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="image_segmentation.train.train_segmentation">
+<code class="sig-prename descclassname">image_segmentation.train.</code><code class="sig-name descname">train_segmentation</code><span class="sig-paren">(</span><em class="sig-param">csv_file</em>, <em class="sig-param">root_path</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">param_path='./parameters.txt'</em>, <em class="sig-param">image_size=256</em>, <em class="sig-param">crop_size=256</em>, <em class="sig-param">batch_size=1</em>, <em class="sig-param">epochs=1</em>, <em class="sig-param">lr=0.001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/image_segmentation/train.html#train_segmentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#image_segmentation.train.train_segmentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the image segmentator.
+The training with output every epoch the results to ./progress.csv</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_file</strong> – path to csv file</p></li>
+<li><p><strong>root_path</strong> – directory to find the samples</p></li>
+<li><p><strong>num_classes</strong> – number of classes</p></li>
+<li><p><strong>param_path</strong> – path to the parameter file</p></li>
+<li><p><strong>image_size</strong> – image size</p></li>
+<li><p><strong>crop_size</strong> – crop size</p></li>
+<li><p><strong>batch_size</strong> – batch size</p></li>
+<li><p><strong>epochs</strong> – epochs</p></li>
+<li><p><strong>lr</strong> – learning rate</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-image_segmentation">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-image_segmentation" title="Permalink to this headline">¶</a></h2>
+<p>Trains a image classifier using the deeplabv3 resnet50 model.</p>
+<p>The input to the model is expected to be a list of tensors, each of shape [C, H, W].</p>
+<p>It uses CrossEntropyLoss as loss function and Adam as optimizer.</p>
+<p>During training it expects every image to have a pixel-wise label between 0 and the number of classes - 1.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Abhi Kamboj, Cary Chai, Francisco Lozano
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

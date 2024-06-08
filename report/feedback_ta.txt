@@ -1,0 +1,18 @@
+Title: somehow indicate buidling classification.
+
+Abstract:
+- more detail mention project of building classification not just ml stuff
+
+Introduction: also describe more about the 3 separate tasks.
+
+Data collection
+- if data collection was a big part of your project, write more about it, make it a bigger section. The whole paper is 4 pages
+- add images of your sample data and labels.
+
+Results:
+- make sure to talk about the training and the models enough,
+just talking about the datasize makes your project seem more trivial then it actually is
+because it is kind of obvious that with more data the models will perform better.
+- when talking about the data size and data,
+make sure you have a specific measure like recall =  true positives / total positives(which is true positves + false negatives))
+or precision = true positive / (true positves + false positives). https://fr.wikipedia.org/wiki/Pr%C3%A9cision_et_rappel

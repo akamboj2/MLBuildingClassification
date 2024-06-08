@@ -1,0 +1,38 @@
+dataset package
+===============
+
+Submodules
+----------
+
+dataset.make\_dataset module
+----------------------------
+
+.. automodule:: dataset.make_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dataset.rand\_samples module
+----------------------------
+
+.. automodule:: dataset.rand_samples
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dataset.sample module
+---------------------
+
+.. automodule:: dataset.sample
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:

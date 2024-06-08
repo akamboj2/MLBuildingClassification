@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>object_detection package &mdash; Building Classification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Building Classification
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">object_detection package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-object_detection.dataset">object_detection.dataset module</a></li>
+<li><a class="reference internal" href="#module-object_detection.labeler">object_detection.labeler module</a></li>
+<li><a class="reference internal" href="#module-object_detection.train">object_detection.train module</a></li>
+<li><a class="reference internal" href="#module-object_detection">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Building Classification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>object_detection package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/object_detection.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="object-detection-package">
+<h1>object_detection package<a class="headerlink" href="#object-detection-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-object_detection.dataset">
+<span id="object-detection-dataset-module"></span><h2>object_detection.dataset module<a class="headerlink" href="#module-object_detection.dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="object_detection.dataset.ObjectDataset">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.dataset.</code><code class="sig-name descname">ObjectDataset</code><span class="sig-paren">(</span><em class="sig-param">csv_file</em>, <em class="sig-param">root_dir</em>, <em class="sig-param">transformation=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/dataset.html#ObjectDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.dataset.ObjectDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<p>Object detection dataset</p>
+<dl class="simple">
+<dt>Each sample is a dictionary containing:</dt><dd><p>‘image’: path to the original image
+‘labels’: array of labels and boxes [label, x0, y0, x1, y1]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="object_detection.dataset.RandomCrop">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.dataset.</code><code class="sig-name descname">RandomCrop</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/dataset.html#RandomCrop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.dataset.RandomCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Transformation of a sample. Crop randomly the image in a sample.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="object_detection.dataset.Rescale">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.dataset.</code><code class="sig-name descname">Rescale</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/dataset.html#Rescale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.dataset.Rescale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Transformation of the size of a sample</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="object_detection.dataset.ToTensor">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.dataset.</code><code class="sig-name descname">ToTensor</code><a class="reference internal" href="_modules/object_detection/dataset.html#ToTensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.dataset.ToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class convert ndarrays in sample to Tensors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="object_detection.dataset.str2array">
+<code class="sig-prename descclassname">object_detection.dataset.</code><code class="sig-name descname">str2array</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/dataset.html#str2array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.dataset.str2array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms the string to an array
+:param s: string
+:return: array</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-object_detection.labeler">
+<span id="object-detection-labeler-module"></span><h2>object_detection.labeler module<a class="headerlink" href="#module-object_detection.labeler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="object_detection.labeler.LabelDialog">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.labeler.</code><code class="sig-name descname">LabelDialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#LabelDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.LabelDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.uix.popup.Popup</span></code></p>
+<p>Label asker dialog</p>
+<dl class="attribute">
+<dt id="object_detection.labeler.LabelDialog.error">
+<code class="sig-name descname">error</code><a class="headerlink" href="#object_detection.labeler.LabelDialog.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>StringProperty(defaultvalue=’‘, <a href="#id1"><span class="problematic" id="id2">**</span></a>kw)
+Property that represents a string value.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>defaultvalue</cite>: string, defaults to ‘’</dt><dd><p>Specifies the default value of the property.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="object_detection.labeler.LabelSquare">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.labeler.</code><code class="sig-name descname">LabelSquare</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#LabelSquare"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.LabelSquare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.uix.widget.Widget</span></code></p>
+<p>Square Widget.</p>
+<dl class="method">
+<dt id="object_detection.labeler.LabelSquare.update_canvas">
+<code class="sig-name descname">update_canvas</code><span class="sig-paren">(</span><em class="sig-param">pos</em>, <em class="sig-param">size</em>, <em class="sig-param">c1=0.5</em>, <em class="sig-param">c2=0.5</em>, <em class="sig-param">c3=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#LabelSquare.update_canvas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.LabelSquare.update_canvas" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="object_detection.labeler.Labeler">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.labeler.</code><code class="sig-name descname">Labeler</code><span class="sig-paren">(</span><em class="sig-param">unlabeled_dir</em>, <em class="sig-param">labeled_dir</em>, <em class="sig-param">path_to_csv</em>, <em class="sig-param">is_unique</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.uix.floatlayout.FloatLayout</span></code></p>
+<p>Labeler layout.</p>
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.add_to_dataset">
+<code class="sig-name descname">add_to_dataset</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.add_to_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.add_to_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the labeled image to the dataset
+:param args: ignore.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.clear_canvas">
+<code class="sig-name descname">clear_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.clear_canvas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.clear_canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the canvas
+:param obj: ignored</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.dismiss_dialog">
+<code class="sig-name descname">dismiss_dialog</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.dismiss_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.dismiss_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the dialog as closed.
+:param args: ignored</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.get_correct_measurements">
+<code class="sig-name descname">get_correct_measurements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.get_correct_measurements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.get_correct_measurements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the correct smallest coordinate point.
+:return: Top left coordinate.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="object_detection.labeler.Labeler.label">
+<code class="sig-name descname">label</code><a class="headerlink" href="#object_detection.labeler.Labeler.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>NumericProperty(defaultvalue=0, <a href="#id3"><span class="problematic" id="id4">**</span></a>kw)
+Property that represents a numeric value.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><cite>defaultvalue</cite>: int or float, defaults to 0</dt><dd><p>Specifies the default value of the property.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span> <span class="o">=</span> <span class="n">Widget</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">wid</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="go">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;plop&quot;</span>
+<span class="go"> Traceback (most recent call last):</span>
+<span class="go">   File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="go">   File &quot;properties.pyx&quot;, line 93, in kivy.properties.Property.__set__</span>
+<span class="go">   File &quot;properties.pyx&quot;, line 111, in kivy.properties.Property.set</span>
+<span class="go">   File &quot;properties.pyx&quot;, line 159, in kivy.properties.NumericProperty.check</span>
+<span class="go"> ValueError: NumericProperty accept only int/float</span>
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.4.1: </span>NumericProperty can now accept custom text and tuple value to indicate a
+type, like “in”, “pt”, “px”, “cm”, “mm”, in the format: ‘10pt’ or (10,
+‘pt’).</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.on_label">
+<code class="sig-name descname">on_label</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.on_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.on_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when the label changes
+:param args: ignored</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.on_touch_down">
+<code class="sig-name descname">on_touch_down</code><span class="sig-paren">(</span><em class="sig-param">touch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.on_touch_down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.on_touch_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when mouse clicks.
+:param touch: position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.on_touch_move">
+<code class="sig-name descname">on_touch_move</code><span class="sig-paren">(</span><em class="sig-param">touch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.on_touch_move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.on_touch_move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when mouse moves.
+:param touch: position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.on_touch_up">
+<code class="sig-name descname">on_touch_up</code><span class="sig-paren">(</span><em class="sig-param">touch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.on_touch_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.on_touch_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function called when mouse un-clicks.
+:param touch: position</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="object_detection.labeler.Labeler.open_dialog">
+<code class="sig-name descname">open_dialog</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#Labeler.open_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.Labeler.open_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the dialog as opened.
+:param args: ignored</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="object_detection.labeler.LabelerApp">
+<em class="property">class </em><code class="sig-prename descclassname">object_detection.labeler.</code><code class="sig-name descname">LabelerApp</code><span class="sig-paren">(</span><em class="sig-param">unlabeled_dir</em>, <em class="sig-param">labeled_dir</em>, <em class="sig-param">path_to_csv</em>, <em class="sig-param">is_unique</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#LabelerApp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.LabelerApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">kivy.app.App</span></code></p>
+<p>Labeler application.</p>
+<dl class="method">
+<dt id="object_detection.labeler.LabelerApp.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#LabelerApp.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.LabelerApp.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds the labeler
+:return: labeler</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="object_detection.labeler.label">
+<code class="sig-prename descclassname">object_detection.labeler.</code><code class="sig-name descname">label</code><span class="sig-paren">(</span><em class="sig-param">unlabeled_dir</em>, <em class="sig-param">labeled_dir</em>, <em class="sig-param">csv</em>, <em class="sig-param">n_classes=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/labeler.html#label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.labeler.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attemps to label all images in the given directory
+:param unlabeled_dir: directory of unlabeled images
+:param labeled_dir: directory of labeled images
+:param csv: path to csv file
+:param n_classes: number of classes (not enforced)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-object_detection.train">
+<span id="object-detection-train-module"></span><h2>object_detection.train module<a class="headerlink" href="#module-object_detection.train" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="object_detection.train.get_objects">
+<code class="sig-prename descclassname">object_detection.train.</code><code class="sig-name descname">get_objects</code><span class="sig-paren">(</span><em class="sig-param">img_path</em>, <em class="sig-param">param_path</em>, <em class="sig-param">num_classes=1</em>, <em class="sig-param">size=720</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/train.html#get_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.train.get_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gts the objects found
+:param img_path: path to image
+:param param_path: path to parameter file
+:param num_classes: number of classes
+:param size: size of image as input
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="object_detection.train.split">
+<code class="sig-prename descclassname">object_detection.train.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param">csv_file='./object_detection/data.csv'</em>, <em class="sig-param">training='./object_detection/training.csv'</em>, <em class="sig-param">validation='./object_detection/validation.csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/train.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.train.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the dataset
+:param csv_file: path to csv
+:param training: path to training csv
+:param validation: path to validation csv</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="object_detection.train.train_f_rcnn">
+<code class="sig-prename descclassname">object_detection.train.</code><code class="sig-name descname">train_f_rcnn</code><span class="sig-paren">(</span><em class="sig-param">csv_file</em>, <em class="sig-param">num_classes</em>, <em class="sig-param">param_path</em>, <em class="sig-param">image_size=256</em>, <em class="sig-param">crop_size=256</em>, <em class="sig-param">batch_size=1</em>, <em class="sig-param">nepochs=1</em>, <em class="sig-param">lr=0.01</em>, <em class="sig-param">root_dir='./resources/object_detection/labeled/'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/object_detection/train.html#train_f_rcnn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#object_detection.train.train_f_rcnn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the Faster RCNN. Training results are printed to the procress.csv</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_file</strong> – path to csv file</p></li>
+<li><p><strong>num_classes</strong> – number of classes</p></li>
+<li><p><strong>param_path</strong> – path to parameter file</p></li>
+<li><p><strong>image_size</strong> – image used as input size</p></li>
+<li><p><strong>crop_size</strong> – crop tranformation size</p></li>
+<li><p><strong>batch_size</strong> – batch size</p></li>
+<li><p><strong>nepochs</strong> – number of epochs</p></li>
+<li><p><strong>lr</strong> – learning rate (ignored)</p></li>
+<li><p><strong>root_dir</strong> – root directory of images</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-object_detection">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-object_detection" title="Permalink to this headline">¶</a></h2>
+<p>Trains a Faster R-CNN model with a ResNet-50-FPN backbone.</p>
+<p>The input to the model is expected to be a list of tensors, each of shape [C, H, W], one for each
+image, and should be in 0-1 range. Different images can have different sizes.</p>
+<p>The behavior of the model changes depending if it is in training or evaluation mode.</p>
+<p>During training, the model expects both the input tensors, as well as a targets (list of dictionary),
+containing:
+- boxes (FloatTensor[N, 4]): the ground-truth boxes in [x1, y1, x2, y2] format, with values</p>
+<blockquote>
+<div><p>between 0 and H and 0 and W</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>labels (Int64Tensor[N]): the class labeled for each ground-truth box</p></li>
+</ul>
+<p>The model returns a Dict[Tensor] during training, containing the classification and regression
+losses for both the RPN and the R-CNN.</p>
+<p>During inference, the model requires only the input tensors, and returns the post-processed
+predictions as a List[Dict[Tensor]], one for each input image. The fields of the Dict are as
+follows:
+- boxes (FloatTensor[N, 4]): the predicted boxes in [x1, y1, x2, y2] format, with values between</p>
+<blockquote>
+<div><p>0 and H and 0 and W</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>labels (Int64Tensor[N]): the predicted labels for each image</p></li>
+<li><p>scores (Tensor[N]): the scores or each prediction</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Abhi Kamboj, Cary Chai, Francisco Lozano
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+object\_detection package
+=========================
+
+Submodules
+----------
+
+object\_detection.dataset module
+--------------------------------
+
+.. automodule:: object_detection.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+object\_detection.labeler module
+--------------------------------
+
+.. automodule:: object_detection.labeler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+object\_detection.train module
+------------------------------
+
+.. automodule:: object_detection.train
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: object_detection
+   :members:
+   :undoc-members:
+   :show-inheritance:
