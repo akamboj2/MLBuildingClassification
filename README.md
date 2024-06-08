@@ -11,6 +11,7 @@ In the run.py file you can find all the possible arguments that can be passed to
 Example: run.py --train-detector
 
 Authors:
+
 [Francisco Lozano](https://github.com/Francloz) 
 
 [Abhi Kamboj](https://github.com/akamboj2)
