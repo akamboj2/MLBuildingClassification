@@ -12,5 +12,7 @@ Example: run.py --train-detector
 
 Authors:
 [Francisco Lozano](https://github.com/Francloz) 
+
 [Abhi Kamboj](https://github.com/akamboj2)
+
 [Cary Chai](https://github.com/caryzc2)
